@@ -7,6 +7,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using CustomLoggerProvider.Logging;
+using CustomLoggerProvider.Repositories;
 
 namespace CustomLoggerProvider
 {
@@ -19,6 +21,10 @@ namespace CustomLoggerProvider
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.AddSqliteProvider(new EventLogRepository(hostingContext.Configuration));
+                });
     }
 }

@@ -5,15 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CustomLoggerProvider.Models;
+using Microsoft.Extensions.Logging;
 
 namespace CustomLoggerProvider.Controllers
 {
-    public class HomeController : Controller
+public class HomeController : Controller
+{
+    private readonly ILogger _logger;
+
+    public HomeController(ILogger<HomeController> logger) => _logger = logger;
+
+    public IActionResult Index()
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        _logger.LogInformation("Chamando a página inicial do site");
+        
+        return View();
+    }
 
         public IActionResult Privacy()
         {
