@@ -7,7 +7,7 @@ namespace CustomLoggerProvider.Logging
     {
         public static ILoggingBuilder AddSqliteProvider<T>(this ILoggingBuilder builder, T repository) where T: LoggerRepository
         {
-            builder.Services.AddSingleton<ILoggerProvider, SqliteLoggerProvider<T>>(p => new SqliteLoggerProvider<T>((_, logLevel) => logLevel >= LogLevel.Debug, repository));
+            builder.Services.AddSingleton<ILoggerProvider, SqliteLoggerProvider<T>>(p => new SqliteLoggerProvider<T>((_, logLevel) => logLevel >= LogLevel.Information, repository));
 
             return builder;
         }

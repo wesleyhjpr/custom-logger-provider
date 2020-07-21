@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Controllers",
+    "\\Db",
+    "\\Logging",
+    "\\Models",
+    "\\Repositories",
+    "\\Views",
+    "\\Views\\Home"
+  ],
+  "SelectedNode": "\\Startup.cs",
+  "PreviewInSolutionExplorer": false
+}

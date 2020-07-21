@@ -27,16 +27,15 @@ namespace CustomLoggerProvider.Logging
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
+            if (!_categoryName.Contains(AppDomain.CurrentDomain.FriendlyName) && logLevel == LogLevel.Information)
+                return;
+
             var logBuilder = new StringBuilder();
 
-            if (!IsEnabled(logLevel)) 
-            { 
-                return; 
-            } 
-            if (formatter == null) 
-            { 
-                throw new ArgumentNullException(nameof(formatter)); 
-            } 
+            if (!IsEnabled(logLevel)) return; 
+            
+            if (formatter == null) throw new ArgumentNullException(nameof(formatter)); 
+            
             var message = formatter(state, exception);
             if (!string.IsNullOrEmpty(message)) 
             { 
@@ -47,10 +46,10 @@ namespace CustomLoggerProvider.Logging
             GetScope(logBuilder);
             
             if (exception != null) 
-                logBuilder.Append(exception.ToString()); 
+               message = logBuilder.Append(exception.ToString()).ToString(); 
 
-            if (logBuilder.Capacity > maxLength)
-                logBuilder.Capacity = maxLength;
+            //if (logBuilder.Capacity > maxLength)
+            //    logBuilder.Capacity = maxLength;
 
             var eventLog = new EventLog 
             { 

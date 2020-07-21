@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
+using System.Data.SqlClient;
 using System.Linq;
 using CustomLoggerProvider.Logging;
 using CustomLoggerProvider.Models;
@@ -15,7 +15,7 @@ namespace CustomLoggerProvider.Repositories
 
         public override void Add(EventLog item)
         {
-            using (IDbConnection dbConnection = new SQLiteConnection(ConnectionString))
+            using (IDbConnection dbConnection = new SqlConnection(ConnectionString))
             {
                 string sQuery = "INSERT INTO EventLog (Category, EventId, LogLevel, Message, CreatedTime)"
                                 + " VALUES(@Category, @EventId, @LogLevel, @Message, @CreatedTime)";
@@ -26,7 +26,7 @@ namespace CustomLoggerProvider.Repositories
 
         public override IEnumerable<EventLog> FindAll()
         {
-            using (IDbConnection dbConnection = new SQLiteConnection(ConnectionString))
+            using (IDbConnection dbConnection = new SqlConnection(ConnectionString))
             {
                 dbConnection.Open();
                 return dbConnection.Query<EventLog>("SELECT * FROM EventLog");
@@ -35,7 +35,7 @@ namespace CustomLoggerProvider.Repositories
 
         public override EventLog FindByID(int id)
         {
-            using (IDbConnection dbConnection = new SQLiteConnection(ConnectionString))
+            using (IDbConnection dbConnection = new SqlConnection(ConnectionString))
             {
                 string sQuery = "SELECT * FROM EventLog" 
                             + " WHERE Id = @Id";
@@ -46,7 +46,7 @@ namespace CustomLoggerProvider.Repositories
 
         public override void Remove(int id)
         {
-            using (IDbConnection dbConnection = new SQLiteConnection(ConnectionString))
+            using (IDbConnection dbConnection = new SqlConnection(ConnectionString))
             {
                 string sQuery = "DELETE FROM EventLog" 
                             + " WHERE Id = @Id";
@@ -57,7 +57,7 @@ namespace CustomLoggerProvider.Repositories
 
         public override void Update(EventLog item)
         {
-            using (IDbConnection dbConnection = new SQLiteConnection(ConnectionString))
+            using (IDbConnection dbConnection = new SqlConnection(ConnectionString))
             {
                 string sQuery = "UPDATE EventLog SET Category = @Category,"
                             + " EventId = @EventId, LogLevel= @LogLevel," 
