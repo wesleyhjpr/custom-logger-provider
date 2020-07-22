@@ -30,12 +30,12 @@ namespace CustomLoggerProvider.Logging
             if (!_categoryName.Contains(AppDomain.CurrentDomain.FriendlyName) && logLevel == LogLevel.Information)
                 return;
 
-            var logBuilder = new StringBuilder();
-
             if (!IsEnabled(logLevel)) return; 
             
             if (formatter == null) throw new ArgumentNullException(nameof(formatter)); 
             
+            var logBuilder = new StringBuilder();
+
             var message = formatter(state, exception);
             if (!string.IsNullOrEmpty(message)) 
             { 

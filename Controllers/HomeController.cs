@@ -20,7 +20,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-            throw new NullReferenceException();
+            //throw new NullReferenceException();
             _logger.LogInformation("Chamando a página inicial do site");
             _logger.LogWarning("LogWarning");
             _logger.LogCritical("LogCritical");
